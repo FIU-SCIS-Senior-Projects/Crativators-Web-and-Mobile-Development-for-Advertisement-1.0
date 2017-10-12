@@ -46,4 +46,4 @@ app.get('/', function(req, res) {
 });
 
 app.listen(config.port);
-console.log('Positive Pathways running on port ' + config.port);
+console.log('FL Pathways running on port ' + config.port);
