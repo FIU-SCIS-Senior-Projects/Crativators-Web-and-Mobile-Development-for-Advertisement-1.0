@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Positive Pathways</string>
+    <string-array name="main_page_dropdown">
+        <item>Programs</item>
+        <item>People</item>
+        <item>Partners</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
