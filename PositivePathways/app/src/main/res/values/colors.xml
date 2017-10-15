@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="PathwaysBlue">#114684</color>
+    <color name="PathwaysGray">#6b727b</color>
+    <color name="PathwaysGold">#c79147</color>
+</resources>
