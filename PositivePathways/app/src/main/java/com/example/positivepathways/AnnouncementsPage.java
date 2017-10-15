@@ -25,4 +25,6 @@ public class AnnouncementsPage extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, announcements);
         list.setAdapter(adapter);
     }
+
+
 }

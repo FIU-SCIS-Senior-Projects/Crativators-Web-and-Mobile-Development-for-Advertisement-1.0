@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openMissionStatement(View view){
-
+        Intent intent = new Intent(this, AboutPage.class);
+        startActivity(intent);
     }
 
     /**
