@@ -19,7 +19,7 @@ angular.module('liaisonService', [])
 
   //create a liaison
   liaisonFactory.create = function(liaisonData) {
-    return $http.post('/api/liaisons/' + id, liaisonData);
+    return $http.post('/api/liaisons/', liaisonData);
   };
 
   //update liaison information
