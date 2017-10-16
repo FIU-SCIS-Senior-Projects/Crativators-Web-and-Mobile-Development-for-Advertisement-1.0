@@ -1,16 +1,46 @@
+//Database functions for liaison profiles.
+
 var Liaison =  require('mongoose').model('Liaison');
 
 //Creating new liaison profile
 exports.create = function(req, res) {
 
   var liaison = new Liaison();
-  liaison.name = "(Name)";
-  liaison.phone = "(Phone Number)";
-  liaison.email = "(Email)";
-  liaison.institution = "(Institution)";
-  liaison.position = "(Position)";
-  liaison.brief = "(Liaison Brief)";
-  liaison.picUrl = "(Picture URL here)";
+
+  if(req.body.name)
+    liaison.name = req.body.name;
+  else
+    liaison.name = "(Name)";
+
+  if(req.body.phone)
+    liaison.phone = req.body.phone;
+  else
+    liaison.phone = "(Phone Number)";
+
+  if(req.body.email)
+    liaison.email = req.body.email;
+  else
+    liaison.email = "(Email)";
+
+  if(req.body.institution)
+    liaison.institution = req.body.institution;
+  else
+    liaison.institution = "(Institution)";
+
+  if(req.body.position)
+    liaison.position = req.body.position;
+  else
+    liaison.position = "(Position)";
+
+  if(req.body.brief)
+    liaison.brief = req.body.brief;
+  else
+    liaison.brief = "(Liaison Brief)";
+
+  if(req.body.picUrl)
+    liaison.picUrl = req.body.picUrl;
+  else
+    liaison.picUrl = "(Picture URL here)";
 
   liaison.save(function(err) {
     if(err) res.send(err);
@@ -66,9 +96,9 @@ exports.modify = function(req, res) {
 exports.expunge = function(req, res) {
   Liaison.remove({
     _id: req.params.liaison_id
-  }, function(err, char) {
+  }, function(err) {
     if(err) res.send(err);
 
-    res.json({ message: 'Successfully deleted' });
+    res.json({ message: 'Successfully deleted Liaison profile.' });
   });
 };
