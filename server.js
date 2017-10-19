@@ -37,7 +37,7 @@ app.use(express.static(__dirname + '/'));
 
 //ROUTES FOR THE API
 //COMPLETE ROUTES ON RELEVANT FILE
-var apiRoutes = require('./app/routes/api')(app, express);
+var apiRoutes = require('./app-backend/routes/api')(app, express);
 app.use('/api', apiRoutes);
 
 //MAIN CATCHALL ROUTE - SEND USERS TO FRONTEND
