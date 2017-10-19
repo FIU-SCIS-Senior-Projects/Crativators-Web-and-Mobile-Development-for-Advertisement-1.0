@@ -1,11 +1,12 @@
 {
   "name": "pathways",
   "main": "server.js",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Alejandro Thornton",
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.3",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "express": "^4.15.2",
