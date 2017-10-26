@@ -58,11 +58,28 @@ exports.modify = function(req, res) {
     if(req.body.username) user.username = req.body.username;
     if(req.body.password) user.password = req.body.password;
 
-    liaison.save(function(err) {
+    user.save(function(err) {
       if(err) res.send(err);
 
       //return a message
       res.json({ _id: user._id, message: 'User account updated!'});
+    });
+  });
+};
+
+exports.activate = function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+
+    if(err) res.send(err);
+
+    //Activates the user account.
+    user.active = true;
+
+    user.save(function(err) {
+      if(err) res.send(err);
+
+      //return a message
+      res.json({ _id: user._id, message: 'User account activated!'});
     });
   });
 };
