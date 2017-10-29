@@ -1,10 +1,14 @@
 <resources>
+
     <string name="app_name">Positive Pathways</string>
-    <string-array name="main_page_dropdown">
-        <item>Programs</item>
-        <item>People</item>
-        <item>Partners</item>
-    </string-array>
+
+    <!-- TODO: change this placeholder link to the database -->
+    <string name="server_url">http://www.google.com/search?q=mkyong</string>
+    <string name="announcement">/api/meeting</string>
+    <string name="profiles">/api/profiles</string>
+    <string name="program">/api/program</string>
+    <string name="user">/api/user</string>
+    <string name="announcement_hint">Type new announcement here.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

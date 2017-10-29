@@ -3,6 +3,10 @@ package com.example.positivepathways;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class UniversityListPage extends AppCompatActivity {
 
     @Override
@@ -11,4 +15,5 @@ public class UniversityListPage extends AppCompatActivity {
         setContentView(R.layout.activity_university_list_page);
 
     }
+
 }
