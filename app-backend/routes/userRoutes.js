@@ -46,6 +46,14 @@ exports.retrieve = function(req, res) {
   });
 };
 
+exports.listInactive = function(req, res) {
+  User.find({ active: false}, function(err, users) {
+    if(err) res.send(err);
+
+    res.json(users);
+  });
+};
+
 //Modifying a user account
 exports.modify = function(req, res) {
   User.findById(req.params.user_id, function(err, user) {
@@ -55,8 +63,11 @@ exports.modify = function(req, res) {
     //setting user information given by request
     if(req.body.name) user.name = req.body.name;
     if(req.body.type) user.type = req.body.type;
+    if(req.body.active) user.active = req.body.active;
     if(req.body.username) user.username = req.body.username;
     if(req.body.password) user.password = req.body.password;
+    if(req.body.profile_id) user._profileId = req.body.profile_id;
+    if(req.body.program_id) user._programId = req.body.program_id;
 
     user.save(function(err) {
       if(err) res.send(err);

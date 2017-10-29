@@ -33,6 +33,12 @@ module.exports = function(app, express) {
     //loading the list of profiles
     apiRouter.route('/profiles').get(profileRoutes.list);
 
+    //loading the list of member profiles
+    apiRouter.route('/profiles/members').get(profileRoutes.listMembers);
+
+    //loading the list of member profiles
+    apiRouter.route('/profiles/partners').get(profileRoutes.listPartners);
+
     //get the profile with given id
     apiRouter.route('/profiles/:profile_id').get(profileRoutes.retrieve);
 
@@ -82,8 +88,11 @@ module.exports = function(app, express) {
     //loading the list of users
     apiRouter.route('/users').get(userRoutes.list);
 
+    //getting list of users that have not been activated
+    apiRouter.route('/users/inactive').get(userRoutes.listInactive);
+
     //modifying an account with given id
-    apiRouter.route('/users/:user_id').post(userRoutes.activate);
+    apiRouter.route('/users/:user_id/activate').post(userRoutes.activate);
 
     //create a new profile
     apiRouter.route('/profiles').post(profileRoutes.create);

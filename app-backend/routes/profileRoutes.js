@@ -59,6 +59,22 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listMembers = function(req, res) {
+  User.find({ type: 'Member' }, function(err, members) {
+    if(err) res.send(err);
+
+    res.json(members);
+  });
+};
+
+exports.listPartners = function(req, res) {
+  User.find({ type: 'Partner' }, function(err, partners) {
+    if(err) res.send(err);
+
+    res.json(partners);
+  });
+};
+
 //Retrieving a specific profile
 exports.retrieve = function(req, res) {
   Profile.findById(req.params.profile_id, function(err, profile) {
