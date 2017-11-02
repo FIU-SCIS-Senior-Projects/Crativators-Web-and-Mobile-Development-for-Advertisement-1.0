@@ -22,6 +22,7 @@ exports.create = function(req, res) {
   else
     meeting.minutes = "(Post Minutes Body)";
 
+  //Date created
   meeting.date = Date("<YYYY-mm-ddTHH:MM:ss>");
 
   meeting.save(function(err) {
@@ -71,8 +72,12 @@ exports.modify = function(req, res) {
       meeting.minutes = req.body.minutes;
       change = true;
     }
+    if(req.body.past) {
+      meeting.past = req.body.past;
+      change = true;
+    }
     if(change)
-      meeting.date = Date("<YYYY-mm-ddTHH:MM:ss>");
+      meeting.date = Date("<YYYY-mm-ddTHH:MM:ss>"); //Date modified
 
     meeting.save(function(err) {
       if(err) res.send(err);
