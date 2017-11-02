@@ -12,11 +12,11 @@ import com.example.positivepathways.R;
  * Created by macbookpro on 10/18/17.
  */
 
-public class CreateNewAnnouncement extends DialogFragment {
+public class CreateNewMeeting extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.inputannouncement, container,
+        View rootView = inflater.inflate(R.layout.inputmeeting, container,
                 false);
         getDialog().setTitle("DialogFragment Tutorial");
         // Do something else

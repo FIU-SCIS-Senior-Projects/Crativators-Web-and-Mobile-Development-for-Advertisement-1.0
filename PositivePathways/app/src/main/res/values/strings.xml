@@ -3,11 +3,13 @@
     <string name="app_name">Positive Pathways</string>
 
     <!-- TODO: change this placeholder link to the database -->
-    <string name="server_url">http://www.google.com/search?q=mkyong</string>
-    <string name="announcement">/api/meeting</string>
-    <string name="profiles">/api/profiles</string>
-    <string name="program">/api/program</string>
-    <string name="user">/api/user</string>
+    <string name="server_url">http://10.0.2.2:8080</string>
+    <string name="meeting">api/meetings</string>
+    <string name="memberProfiles">api/profiles/members</string>
+    <string name="partnerProfiles">api/profiles/partners</string>
+    <string name="program">api/programs</string>
+    <string name="user">api/users</string>
+    <string name="login">api/authenticate</string>
     <string name="announcement_hint">Type new announcement here.</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -8,12 +8,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*try{
+            login();
+        }
+        catch(Exception e){
+            System.out.println("Exception" + e.toString());
+        }*/
 
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(MainActivity.this) {
             @Override
@@ -22,15 +31,23 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.main_page_dropdown, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+    }
 
+    private void login() throws JSONException, Exception{
+
+        LoginHandler loggedIn = ((LoginHandler)getApplicationContext());
+        try {
+            loggedIn.loginHandler(1);
+            try {
+                loggedIn.loginServer();
+            }
+            catch(Exception e){
+                System.out.println("Exception" + e.toString());
+            }
+        }
+        catch (JSONException e){
+            System.out.println("JSON" + e.toString());
+        }
     }
 
     /**
@@ -48,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
      * Future conditions: Only show button if there is a new announcement
      * @param view
      */
-    public void openAnnouncements(View view){
-        Intent intent = new Intent(this, AnnouncementsPage.class);
+    public void openMeetings(View view){
+        Intent intent = new Intent(this, MeetingsPage.class);
         startActivity(intent);
     }
 
@@ -68,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openProgramList(View view){
+
+
+    }
+
+    public void openLoginPage(View view){
 
 
     }
