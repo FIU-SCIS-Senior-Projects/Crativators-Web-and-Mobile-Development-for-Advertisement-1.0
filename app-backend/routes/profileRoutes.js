@@ -60,7 +60,7 @@ exports.list = function(req, res) {
 };
 
 exports.listMembers = function(req, res) {
-  User.find({ type: 'Member' }, function(err, members) {
+  Profile.find({ type: 'Member' }, function(err, members) {
     if(err) res.send(err);
 
     res.json(members);
@@ -68,7 +68,7 @@ exports.listMembers = function(req, res) {
 };
 
 exports.listPartners = function(req, res) {
-  User.find({ type: 'Partner' }, function(err, partners) {
+  Profile.find({ type: 'Partner' }, function(err, partners) {
     if(err) res.send(err);
 
     res.json(partners);
