@@ -8,10 +8,8 @@
     android:orientation="vertical"
     tools:context="com.example.positivepathways.UniversityListPage">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="layout.FetchProfile"
+    <ListView
+        android:id="@+id/university_logos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_fetch_profile" />
+        android:layout_height="match_parent" />
 </LinearLayout>

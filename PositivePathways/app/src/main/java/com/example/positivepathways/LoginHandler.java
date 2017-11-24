@@ -1,6 +1,8 @@
 package com.example.positivepathways;
 
 import android.app.Application;
+import android.os.AsyncTask;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,7 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * This class keeps the logged in token if there is one.
+ * The purpose of this class is to maintain a global (logged_in) token.
+ *
+ * The most important method is getLoginToken()
+ *
+ * To use this, this class needs
  */
 
 public class LoginHandler extends Application {
@@ -21,19 +27,22 @@ public class LoginHandler extends Application {
 
     /**
      * for testing purposes
-     * @param bleh
+     * @param bleh my testing variable
      * @throws JSONException
      */
     public void loginHandler(int bleh) throws JSONException{
         if(bleh == 1) //admin
             login = new JSONObject().put("username", "SampleAdmin")
-                    .put("password", "administration");
+                    .put("password", "administrator");
         else if (bleh == 2) //member
             login = new JSONObject().put("username", "SampleMember")
                     .put("password", "member");
         else if (bleh == 3) //moderator
             login = new JSONObject().put("username", "SampleMod")
                     .put("password", "moderator");
+
+        //creates the login function asynchronously
+        new login().execute();
     }
 
     /**
@@ -45,6 +54,7 @@ public class LoginHandler extends Application {
     public void loginHandler(String user, String pass) throws JSONException{
         login = new JSONObject().put("username", user)
                 .put("password", pass);
+        new login().execute();
     }
 
     /**
@@ -53,9 +63,9 @@ public class LoginHandler extends Application {
      * @throws JSONException
      */
     public void loginServer() throws Exception, JSONException{
-        url =  new URL(this.getString(R.string.server_url));
+        url =  new URL(this.getString(R.string.server_url) + this.getString(R.string.login));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("Content-Type", this.getString(R.string.login)+"; charset=UTF-8");
+        connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
@@ -70,19 +80,37 @@ public class LoginHandler extends Application {
 
         in.close();
         connection.disconnect();
-        if(reply.getBoolean("success") == true)
+
+        //Alternatively, one can check the requestcode.
+        if(reply.getBoolean("success") == true) {
             setLoginToken(reply.getString("token"));
+            System.out.println("Token success: " + reply.getString("token"));
+        }
 
         else
             System.out.println(reply.getString("message"));
 
     }
 
-    public String getLoginToken(){
-        return loginToken;
-    }
+    /**
+     * Private class runs the http calls asynchronously, because http cannot be called on the main thread
+     */
+    private class login extends AsyncTask<Void, Void, String> {
 
-    public void setLoginToken(String token){
-        loginToken = token;
+        protected String doInBackground(Void... params) {
+            try {
+                loginServer();
+            } catch (Exception e) {
+                System.out.println("JSON" + e.toString());
+            }
+            return "Blank message";
+        }
     }
+    public String getLoginToken() {
+            return loginToken;
+        }
+
+    private void setLoginToken(String token) {
+            loginToken = token;
+        }
 }

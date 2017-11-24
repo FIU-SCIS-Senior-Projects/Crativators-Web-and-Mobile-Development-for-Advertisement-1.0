@@ -12,12 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by macbookpro on 11/1/17.
+ * Loads the meetings to fit into the meeting_layout.xml file.
  */
-
 public class MeetingAdapter extends BaseAdapter {
-    private Activity activity;
-    private ArrayList<String[]> data;
+    private Activity activity;  //current activity calling the adapter
+    private ArrayList<String[]> data;   //the arraylist of string arrays
     private static LayoutInflater inflater = null;
     public Resources res;
     String [] entry = null;
@@ -31,20 +30,25 @@ public class MeetingAdapter extends BaseAdapter {
         inflater = (LayoutInflater)this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    //I think this is required when implementing BaseAdapter
     public int getCount(){
         if(data.size() <= 0)
             return 1;
         return data.size();
     }
 
+    //I think this is also required for implementing BaseAdapter
     public Object getItem(int position){
         return position;
     }
 
+    //I think this is also required...
     public long getItemId(int position){
         return position;
     }
 
+    //small class to hold the three fields.
+    //TODO: I must change this to match the current layout for the application
     public static class ViewHolder{
         public TextView date;
         public TextView title;
@@ -56,6 +60,7 @@ public class MeetingAdapter extends BaseAdapter {
         View rowView = convertView;
         ViewHolder holder;
 
+        //attaches the values of the other layout to the holder.
         if(convertView == null){
             rowView = inflater.inflate(R.layout.meeting_layout, parent, false);
 
