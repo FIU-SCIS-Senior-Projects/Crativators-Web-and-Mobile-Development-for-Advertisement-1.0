@@ -2,16 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.positivepathways">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
+        android:name=".LoginHandler"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MainPageTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +28,7 @@
         </activity>
         <activity
             android:name=".UniversityListPage"
+            android:label="Programs"
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -30,7 +39,8 @@
         </activity>
         <activity
             android:name=".MeetingsPage"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
@@ -38,8 +48,25 @@
                 android:value=".MainActivity"
                 tools:replace="android:value" />
         </activity>
+        <activity
+            android:name=".AboutPage"
+            android:label=""
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MembersPage"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".DetailedProfile"
+            android:label=""
+            android:parentActivityName=".MembersPage" />
 
-        <activity android:name=".AboutPage"></activity>
+        <activity android:name=".LoginPage"
+            android:label= ""></activity>
+
+        <activity android:name = ".CreateNewMeeting"
+            android:label=""
+            android:parentActivityName=".MeetingsPage"/>
     </application>
 
 </manifest>
