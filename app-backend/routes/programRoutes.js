@@ -1,6 +1,6 @@
 //Database functions for programs.
 
-var Program =  require('mongoose').model('Profile');
+var Program =  require('mongoose').model('Program');
 
 //Creating new program
 exports.create = function(req, res) {

@@ -17,6 +17,11 @@ exports.create = function(req, res) {
   else
     profile.phone = "(Phone Number)";
 
+  if(req.body.type)
+    profile.type = req.body.type;
+  else
+    profile.type = "(Type)";
+
   if(req.body.email)
     profile.email = req.body.email;
   else
