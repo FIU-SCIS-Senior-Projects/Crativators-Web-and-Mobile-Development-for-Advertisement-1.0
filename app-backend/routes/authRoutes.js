@@ -41,7 +41,8 @@ exports.authentication = function(req, res) {
         res.json({
           success: true,
           message: 'Authentication success, token passed.',
-          token: token
+          token: token,
+          type: user.type
         });
       } else {
           res.json({
