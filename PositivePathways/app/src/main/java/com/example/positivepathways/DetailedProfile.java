@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import org.json.JSONArray;
@@ -30,10 +31,10 @@ import layout.OvalImageView;
 public class DetailedProfile extends OptionsActivity implements CheckDelete.CheckDeleteListener {
     private JSONObject profile_info;
     private String name = "", institution = "", position = "", email = "", phone = "", info = "",
-    school_url = "", profile_pic = "", token = "", modify = "";
+    school_url = "", profile_pic = "", token = "", modifyProfileId = "", userType = "";
     private HttpURLConnection connection = null;
     private URL addr;
-    private Boolean match = false;
+    private Boolean match = false; //TODO only display EDIT button if it is user's profile
     private ViewSwitcher profileViewSwitcher;
 
     @Override
@@ -41,10 +42,14 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_profile);
 
+        LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
+        userType = loggedIn.getUserType();
+
         //loads the profile object from the MembersPage
         try{
             profile_info = new JSONObject(getIntent().getStringExtra("fullProfile"));
-            modify = profile_info.getString("_id");
+            modifyProfileId = profile_info.getString("_id");
+            setTitle(profile_info.getString("name"));
             fillContent();
         }
         catch(JSONException e){
@@ -54,17 +59,20 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         profileViewSwitcher = (ViewSwitcher) findViewById(R.id.profile_viewswitcher);
 
         Button edit_button = (Button) findViewById(R.id.edit);
+        if(userType.equals("")){
+           edit_button.setVisibility(View.INVISIBLE);
+        }
         edit_button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 try {
+                    //fills the edit boxes.
                     fillEditableContent();
                 }
                 catch (JSONException e){
                     e.printStackTrace();
                 }
                 profileViewSwitcher.showNext();
-                //TODO fill edit content
             }
         });
 
@@ -79,6 +87,9 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         });
 
         Button delete = (Button)findViewById(R.id.profile_delete);
+        if(userType.equals("Member")){
+            delete.setVisibility(View.INVISIBLE);
+        }
         delete.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -89,11 +100,6 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         );
 
     }
-
-    /*public void onBackPressed(){
-        super.onBackPressed();
-        finish();
-    }*/
 
     /**
      * This class loads the profile information into the content view.
@@ -311,7 +317,7 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
      */
     private void deleteProfile() throws IOException, JSONException{
         if(checkLogin()) {
-            addr = new URL(this.getString(R.string.server_url) + this.getString(R.string.profiles) + "/" + modify);
+            addr = new URL(this.getString(R.string.server_url) + this.getString(R.string.profiles) + "/" + modifyProfileId);
             connection = (HttpURLConnection) addr.openConnection();
 
             connection.setRequestMethod("DELETE");
@@ -337,6 +343,9 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
     }
 
     @Override
+    /**
+     * For the dialog box. If the user clicks "Yes", then we delete the profile
+     */
     public void onSelection(boolean choice){
         if(choice == true){
             new removeProfilefromDatabase().execute();
@@ -350,7 +359,11 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         token = loggedIn.getLoginToken();
         if(token.equals("")) {
             System.out.println("User is not logged in");
-            //Toast.makeText(CreateNewMeeting.this, "Please log in to add an announcement.", Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable(){
+                public void run(){
+                    Toast.makeText(DetailedProfile.this, "Please log in to modify a profile.", Toast.LENGTH_SHORT).show();
+                }
+            });
             return false;
         }
         return true;
@@ -361,7 +374,7 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
         //The server address can be modified in strings.xml. That way we don't have to modify its use throughout the app
         if (checkLogin()) {
             //if we're modifying a existing profile
-            addr = new URL(this.getString(R.string.server_url) + this.getString(R.string.profiles) + "/" + modify);
+            addr = new URL(this.getString(R.string.server_url) + this.getString(R.string.profiles) + "/" + modifyProfileId);
             connection = (HttpURLConnection) addr.openConnection();
             connection.setRequestMethod("PUT");
             connection.setRequestProperty("Content-type", "application/json; charset=UTF-8");
@@ -397,7 +410,12 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
 
             if(reply.getString("message").equals("Failed to authenticate token.")){
                 System.out.println("Failed to Add meeting");
-                //Toast.makeText(CreateNewMeeting.this, "Please log in again.", Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable(){
+                    public void run(){
+                        Toast.makeText(DetailedProfile.this, "Changes have not been applied.\n" +
+                                "Insufficient user credentials.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             else
                 finish();

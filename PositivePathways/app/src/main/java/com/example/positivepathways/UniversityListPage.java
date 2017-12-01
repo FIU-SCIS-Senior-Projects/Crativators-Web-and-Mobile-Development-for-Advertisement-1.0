@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * This class loads the list of university images and connects them to the corresponding profile.
  */
-public class UniversityListPage extends AppCompatActivity {
+public class UniversityListPage extends OptionsActivity {
     private String input;
     private String picURL = "", name = "";
     private HttpURLConnection connection = null;

@@ -15,6 +15,7 @@ import org.json.JSONException;
 public class LoginPage extends AppCompatActivity {
     private String username = "";
     private String password = "";
+    TextView error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class LoginPage extends AppCompatActivity {
 
         final EditText userInput = (EditText) findViewById(R.id.user_input);
         final EditText userPass = (EditText) findViewById(R.id.password_input);
+        error = (TextView) findViewById(R.id.login_incorrect);
+
         Button login = (Button)findViewById(R.id.login_button);
         login.setOnClickListener(
                 new View.OnClickListener() {
@@ -45,12 +48,16 @@ public class LoginPage extends AppCompatActivity {
         protected String doInBackground(Void... params) {
             LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
             try {
-                loggedIn.loginHandler(1);
-                //loggedIn.loginHandler(username, password);
+                if(username.equals(""))
+                    loggedIn.loginHandler(1);
+                else
+                    loggedIn.loginHandler(username, password);
                 try {
                     loggedIn.loginServer();
-                } catch (Exception e) {
-                    System.out.println("Exception" + e.toString());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    return e.toString();
                 }
             } catch (JSONException e) {
                 System.out.println("JSON" + e.toString());
@@ -68,7 +75,7 @@ public class LoginPage extends AppCompatActivity {
                 finish();
             }
             else{
-                //TODO display login was incorrect
+                error.setVisibility(View.VISIBLE);
             }
         }
     }

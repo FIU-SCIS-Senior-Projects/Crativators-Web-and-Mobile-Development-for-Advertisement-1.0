@@ -160,14 +160,4 @@ public class MainActivity extends OptionsActivity {
         startActivity(intent);
 
     }
-
-    public void openLoginPage(View view){
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
-
-    }
-
-    public void searchForProfile(View view){
-        //TODO take in the user's search and search by name/institution
-    }
 }

@@ -3,6 +3,8 @@ package com.example.positivepathways;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MembersPage extends AppCompatActivity{
+/**
+ * This class loads the profiles for the Members Page, Partners Page, and the search results page.
+ */
+public class MembersPage extends OptionsActivity{
     private String input;
     private String profile_pic_url = "", name = "", phone = "", email = "", token;
     private HttpURLConnection connection = null;
@@ -33,6 +38,8 @@ public class MembersPage extends AppCompatActivity{
     private ListView list;  //the adapter inflater to see the simple profiles
     private boolean search = false;
 
+    Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +48,8 @@ public class MembersPage extends AppCompatActivity{
         else if(getIntent().getIntExtra("memberOrPartner", 1) == 1)
             setTitle("Members");
         else {
-            setTitle("Search Results");
             input = getIntent().getStringExtra("userSearch");
+            setTitle("Search Results for" + " \"" + input + "\"");
             search = true;
         }
 
@@ -61,6 +68,13 @@ public class MembersPage extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+        new retrieveProfiles().execute();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //resets the screen of profiles
         new retrieveProfiles().execute();
     }
 

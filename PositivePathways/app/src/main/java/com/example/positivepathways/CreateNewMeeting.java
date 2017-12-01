@@ -43,11 +43,16 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inputmeeting);
+
+        //Matches with the edittext boxes
         final EditText userTitle = (EditText) findViewById(R.id.meeting_title);
         final EditText userBody = (EditText) findViewById(R.id.meeting_body);
+        final EditText userMinutes = (EditText) findViewById(R.id.meeting_minutes);
 
         //TODO Possible future use is to plan meetings in advance.
         final EditText userDate = (EditText) findViewById(R.id.meeting_date);
+
+        pastBox = (CheckBox)findViewById(R.id.pastCheck);
 
         //if we're updating a meeting
         if(getIntent().getIntExtra("preFilled", 0) == 1){
@@ -67,8 +72,10 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //sets the title, message, and the minutes to build the json in addMeeting
                         title = userTitle.getText().toString().trim();
                         message = userBody.getText().toString().trim();
+                        minutes = userMinutes.getText().toString().trim();
                         if(CreateNewMeeting.this.put_call)
                             past = pastBox.isChecked();
                         //checks if all the information is filled
@@ -113,7 +120,6 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
             view.setVisibility(View.VISIBLE);
             view.setText(minutes);
 
-            pastBox = (CheckBox)findViewById(R.id.pastCheck);
             pastBox.setVisibility(View.VISIBLE);
 
             Button delete = (Button)findViewById(R.id.meeting_delete);
@@ -156,9 +162,14 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
 
             if(connection.getResponseCode()==200)
                 finish();
-            /*else
-                Toast.makeText(CreateNewMeeting.this, "Insufficient authorization to delete this meeting.",
-                        Toast.LENGTH_LONG).show();*/
+            else {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(CreateNewMeeting.this, "Meeting could not be deleted.\n" +
+                                "Insufficient user credentials.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
@@ -169,7 +180,11 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
         token = loggedIn.getLoginToken();
         if(token.equals("")) {
             System.out.println("User is not logged in");
-            //Toast.makeText(CreateNewMeeting.this, "Please log in to add an announcement.", Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable(){
+                public void run(){
+                    Toast.makeText(CreateNewMeeting.this, "Please log in.", Toast.LENGTH_SHORT).show();
+                }
+            });
             return false;
         }
         return true;
@@ -184,6 +199,7 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
         //if the user is logged in, then they can post to the server.
         //The server address can be modified in strings.xml. That way we don't have to modify its use throughout the app
         if (checkLogin()) {
+            System.out.println("put_call test:" + put_call);
             //if we're modifying a existing meeting
             if(put_call) {
                 addr = new URL(this.getString(R.string.server_url) + this.getString(R.string.meeting) + "/" + modify);
@@ -197,6 +213,7 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
                 connection = (HttpURLConnection) addr.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
+                connection.setRequestProperty("Content-type", "application/json; charset=UTF-8");
             }
             connection.setRequestProperty("Content-length", "application/json; charset=UTF-8");
             connection.setDoOutput(true);
@@ -227,7 +244,12 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
 
             if(reply.getString("message").equals("Failed to authenticate token.")){
                 System.out.println("Failed to Add meeting");
-                //Toast.makeText(CreateNewMeeting.this, "Please log in again.", Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable(){
+                    public void run(){
+                        Toast.makeText(CreateNewMeeting.this, "Changes have not been applied.\n" +
+                                "Insufficient user credentials.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             else
                 finish();

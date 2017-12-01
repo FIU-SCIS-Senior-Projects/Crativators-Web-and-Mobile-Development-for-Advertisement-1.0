@@ -9,11 +9,11 @@
     <Button
         android:id="@+id/Old_Meetings"
         style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="7dp"
         android:background="@color/PathwaysBlue"
         android:elevation="0dp"
@@ -23,8 +23,6 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/Programs"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/web_logo"
         app:layout_constraintVertical_bias="1.0" />
@@ -32,7 +30,7 @@
     <Button
         android:id="@+id/Programs"
         style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="101dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:background="@color/PathwaysBlue"
@@ -42,15 +40,19 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/About_button" />
+        app:layout_constraintLeft_toRightOf="@+id/About_button"
+        app:layout_constraintRight_toLeftOf="@+id/Old_Meetings"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.518" />
 
     <Button
         android:id="@+id/About_button"
         style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="101dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
         android:background="@color/PathwaysBlue"
@@ -80,7 +82,7 @@
     <Button
         android:id="@+id/Partners_button"
         style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="106dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@color/PathwaysBlue"
@@ -90,14 +92,17 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/Members_button"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintRight_toLeftOf="@+id/New_Meetings"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/Members_button"
         style="@android:style/Widget.Material.Button.Borderless"
-        android:layout_width="101dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/PathwaysBlue"
@@ -113,10 +118,10 @@
     <Button
         android:id="@+id/New_Meetings"
         style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/PathwaysBlue"
         android:onClick="openFutureMeetings"
@@ -124,8 +129,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/Partners_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 

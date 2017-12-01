@@ -23,12 +23,13 @@ import java.util.ArrayList;
 public class MeetingsPage extends OptionsActivity {
 
     private String input;
-    private String title, agenda, date, minutes, token;
+    private String title, agenda, date, minutes;
     private HttpURLConnection connection = null;
     private URL addr;
     private static ArrayList<String[]> meetings = new ArrayList<String[]>();
     private ArrayList<JSONObject> visibleMeetings = new ArrayList<JSONObject>();
     private boolean checkOld = false;
+    private boolean member = false;
     private ListView list;
 
     @Override
@@ -42,12 +43,20 @@ public class MeetingsPage extends OptionsActivity {
             setTitle("Past Meetings");
         }
         else{
-            setTitle("Future Meetings");
+            setTitle("Upcoming Meetings");
         }
         new retrieveMeetings().execute();
 
-        //starts the class to create a new meeting
+        LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
+        if(!loggedIn.getLoginToken().equals("")){
+            member = true;
+        }
+
+        //starts the class to create a new meeting only if the user has the correct credentials
         Button newMeeting = (Button)findViewById(R.id.add_meeting);
+        if(member == false){
+            newMeeting.setVisibility(View.GONE);
+        }
         newMeeting.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -62,21 +71,30 @@ public class MeetingsPage extends OptionsActivity {
         list = (ListView) findViewById(R.id.recentMeetings);
 
         /**
-         * If a meeting is clicked, the edit screen appears.
+         * If a meeting is clicked, the edit screen appears, only if the user is a logged-in member
          */
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> l, View v, int position, long id){
-                Intent intent = new Intent();
-                intent.setClass(MeetingsPage.this, CreateNewMeeting.class);
-                System.out.println("You clicked " + position + "!!");
+        if(member == true) {
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+                    Intent intent = new Intent();
+                    intent.setClass(MeetingsPage.this, CreateNewMeeting.class);
+                    System.out.println("You clicked " + position + "!!");
 
-                //sends the meeting information to CreateNewMeeting
-                intent.putExtra("fullMeeting", visibleMeetings.get(position).toString());
-                intent.putExtra("preFilled", 1);
-                System.out.println(visibleMeetings.get(position).toString());
-                startActivity(intent);
-            }
-        });
+                    //sends the meeting information to CreateNewMeeting
+                    intent.putExtra("fullMeeting", visibleMeetings.get(position).toString());
+                    intent.putExtra("preFilled", 1);
+                    System.out.println(visibleMeetings.get(position).toString());
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //when the activity is loaded agin, reset the list of meetings
+        new retrieveMeetings().execute();
     }
 
     //Loads the values into the listview

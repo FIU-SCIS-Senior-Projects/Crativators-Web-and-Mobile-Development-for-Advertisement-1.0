@@ -21,7 +21,7 @@ import java.net.URL;
  */
 
 public class LoginHandler extends Application {
-    private String loginToken = "";
+    private String loginToken = "", userType = "";
     private JSONObject login = new JSONObject();
     private URL url;
 
@@ -84,6 +84,7 @@ public class LoginHandler extends Application {
         //Alternatively, one can check the requestcode.
         if(reply.getBoolean("success") == true) {
             setLoginToken(reply.getString("token"));
+            setUserType(reply.getString("type"));
             System.out.println("Token success: " + reply.getString("token"));
         }
 
@@ -106,6 +107,7 @@ public class LoginHandler extends Application {
             return "Blank message";
         }
     }
+    //returns the token
     public String getLoginToken() {
             return loginToken;
         }
@@ -113,4 +115,17 @@ public class LoginHandler extends Application {
     private void setLoginToken(String token) {
             loginToken = token;
         }
+
+    //returns the type of user
+    public String getUserType() { return userType; }
+
+    private void setUserType(String type) { userType = type; }
+
+    /**
+     * Clears the tokens
+     */
+    public void logout(){
+        setUserType("");
+        setLoginToken("");
+    }
 }

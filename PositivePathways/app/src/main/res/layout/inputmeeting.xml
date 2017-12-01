@@ -20,7 +20,7 @@
         android:inputType="textCapSentences|textMultiLine"
         android:selectAllOnFocus="false"
         android:singleLine="false"
-        android:text="@string/announcement_hint"
+        android:hint="@string/announcement_hint"
         android:textColor="@android:color/white"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -50,7 +50,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Meeting Title"
+        android:hint="Meeting Title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp" />
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textCapSentences|textMultiLine"
-        android:text="Type meeting minutes here."
+        android:hint="Type meeting minutes here."
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -93,12 +93,14 @@
 
     <Button
         android:id="@+id/meeting_delete"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginRight="8dp"
         android:background="@android:color/holo_red_dark"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Delete Meeting"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

@@ -265,7 +265,7 @@
                 android:layout_marginLeft="8dp"
                 android:background="@android:color/holo_red_dark"
                 android:backgroundTint="@android:color/holo_red_dark"
-                android:text="Delete Meeting"
+                android:text="Delete Profile"
                 android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/edit_info"
                 app:layout_constraintBottom_toBottomOf="parent"
