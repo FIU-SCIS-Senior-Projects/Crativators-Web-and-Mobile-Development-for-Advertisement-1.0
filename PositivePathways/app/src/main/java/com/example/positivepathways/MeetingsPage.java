@@ -36,6 +36,10 @@ public class MeetingsPage extends OptionsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        callOnCreate();
+    }
+
+    private void callOnCreate(){
         System.out.println("Meetings page");
         setContentView(R.layout.activity_meetings_page);
         if(getIntent().getIntExtra("future", 0) == 0) {
@@ -51,6 +55,8 @@ public class MeetingsPage extends OptionsActivity {
         if(!loggedIn.getLoginToken().equals("")){
             member = true;
         }
+        else
+            member = false;
 
         //starts the class to create a new meeting only if the user has the correct credentials
         Button newMeeting = (Button)findViewById(R.id.add_meeting);
@@ -91,10 +97,10 @@ public class MeetingsPage extends OptionsActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        //when the activity is loaded agin, reset the list of meetings
-        new retrieveMeetings().execute();
+    protected void onResume() {
+        super.onResume();
+        //resets the screen of profiles
+        callOnCreate();
     }
 
     //Loads the values into the listview

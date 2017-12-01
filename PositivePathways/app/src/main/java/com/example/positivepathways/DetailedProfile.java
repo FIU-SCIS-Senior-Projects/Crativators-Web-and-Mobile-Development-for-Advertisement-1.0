@@ -40,6 +40,9 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    private void callOnCreate(){
         setContentView(R.layout.activity_detailed_profile);
 
         LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
@@ -60,7 +63,7 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
 
         Button edit_button = (Button) findViewById(R.id.edit);
         if(userType.equals("")){
-           edit_button.setVisibility(View.INVISIBLE);
+            edit_button.setVisibility(View.INVISIBLE);
         }
         edit_button.setOnClickListener(new View.OnClickListener() {
 
@@ -98,7 +101,13 @@ public class DetailedProfile extends OptionsActivity implements CheckDelete.Chec
                     }
                 }
         );
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //resets the screen of profiles
+        callOnCreate();
     }
 
     /**

@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by macbookpro on 11/17/17.
@@ -37,6 +40,12 @@ public abstract class OptionsActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.login_menu){
             Intent intent = new Intent(this, LoginPage.class);
             startActivity(intent);
+        }
+        else if(item.getItemId()==R.id.logout_menu){
+            LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
+            loggedIn.logout();
+            this.onResume();
+            Toast.makeText(this, "You have been successfully logged out.", Toast.LENGTH_SHORT).show();
         }
         if(item.getItemId()== android.R.id.home)
             onBackPressed();

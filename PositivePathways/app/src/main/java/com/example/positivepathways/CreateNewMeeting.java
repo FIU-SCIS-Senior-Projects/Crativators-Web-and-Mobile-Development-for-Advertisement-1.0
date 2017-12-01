@@ -76,8 +76,10 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
                         title = userTitle.getText().toString().trim();
                         message = userBody.getText().toString().trim();
                         minutes = userMinutes.getText().toString().trim();
-                        if(CreateNewMeeting.this.put_call)
+                        if(CreateNewMeeting.this.put_call) {
                             past = pastBox.isChecked();
+                            System.out.println("Past meeting: " + past);
+                        }
                         //checks if all the information is filled
                         if(title.equals("") || message.equals("")){
                             Toast.makeText(CreateNewMeeting.this, "Some information is missing.",
@@ -120,7 +122,9 @@ public class CreateNewMeeting extends OptionsActivity implements CheckDelete.Che
             view.setVisibility(View.VISIBLE);
             view.setText(minutes);
 
-            pastBox.setVisibility(View.VISIBLE);
+            if(meetingToEdit.getBoolean("past") == false)
+                pastBox.setVisibility(View.VISIBLE);
+            //pastBox.setChecked();
 
             Button delete = (Button)findViewById(R.id.meeting_delete);
             delete.setVisibility(View.VISIBLE);

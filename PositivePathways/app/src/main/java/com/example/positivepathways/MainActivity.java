@@ -95,6 +95,11 @@ public class MainActivity extends OptionsActivity {
                         Intent intent = new Intent(MainActivity.this, LoginPage.class);
                         startActivity(intent);
                         return;
+                    case "Logout":
+                        LoginHandler loggedIn = ((LoginHandler) getApplicationContext());
+                        loggedIn.logout();
+                        Toast.makeText(MainActivity.this, "Toast Successfully logged out", Toast.LENGTH_SHORT).show();
+                        return;
                     default:
                         return;
                 }

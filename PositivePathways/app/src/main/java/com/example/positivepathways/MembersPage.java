@@ -43,6 +43,10 @@ public class MembersPage extends OptionsActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        callOnCreate();
+    }
+
+    private void callOnCreate(){
         if(getIntent().getIntExtra("memberOrPartner", 1) == 0)
             setTitle("Partners");
         else if(getIntent().getIntExtra("memberOrPartner", 1) == 1)
@@ -72,10 +76,10 @@ public class MembersPage extends OptionsActivity{
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         //resets the screen of profiles
-        new retrieveProfiles().execute();
+        callOnCreate();
     }
 
     //Loads the values into the listview
