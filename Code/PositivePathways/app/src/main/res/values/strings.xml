@@ -1,0 +1,36 @@
+<resources>
+
+    <string name="app_name">Positive Pathways</string>
+
+    <!-- TODO: change this placeholder link to the database -->
+    <string name="server_url">http://10.0.2.2:8080</string>
+    <string name="meeting">/api/meetings</string>
+    <string name="profiles">/api/profiles</string>
+    <string name="memberProfiles">/api/profiles/members</string>
+    <string name="partnerProfiles">/api/profiles/partners</string>
+    <string name="program">/api/programs</string>
+    <string name="user">/api/users</string>
+    <string name="login">/api/authenticate</string>
+    <string name="announcement_hint">Type new meeting here.</string>
+    <string-array name= "dropdown_menu">
+        <item> </item>
+        <item>Login</item>
+        <item>Logout</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>
